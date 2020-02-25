@@ -1,19 +1,20 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
     View,
     StyleSheet,
     Dimensions, 
     Image,
-    Text,
+    
 } from 'react-native'
 import * as actions from '../../actions/loginActions'
 
-import { Button, Icon, Input } from 'react-native-elements'
+import { Button, Icon, Input,Text } from 'react-native-elements'
 
 import { useSelector, useDispatch } from 'react-redux'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import whiteChoco from '../../assets/images/choco-wm.png'
 import SplashScreen from 'react-native-splash-screen'
+import colors from '../../constants/colors'
 
 const window = Dimensions.get('window')
 
@@ -22,6 +23,14 @@ const LoginScreen = () => {
         SplashScreen.hide()
     }, [])
     const dispatch = useDispatch()
+    const [ username, setUsername ] = useState('')
+    const [ password, setPassword ] = useState('')
+    const [ errorMsg, setErrorMsg ] = useState(null)
+
+    const loginVerify = () => {
+        var response = dispatch(actions.login(username, password))
+        setErrorMsg(response)        
+    }
     return(
         <KeyboardAwareScrollView contentContainerStyle={{ flexGrow: 1 }}>            
             <View style={styles.container}>
@@ -36,6 +45,8 @@ const LoginScreen = () => {
                             color='#00aced'
                         />
                     }
+                    onChangeText={username=> setUsername(username)}
+                    
                 />
                 <Input
                     placeholder='Password'
@@ -47,12 +58,17 @@ const LoginScreen = () => {
                             color='#00aced'
                         />
                     }
+                    secureTextEntry
+                    containerStyle={{ marginTop:10 }}
+                    onChangeText={psw => setPassword(psw)}
                 />
+                <Text style={{ color:colors.RED, marginTop:10 }}>{errorMsg}</Text>
                 <Button                    
                     title="login"
                     type="solid"
-                    containerStyle= {{ width: '96%', marginTop:50 }}
-                    onPress={() =>{console.log('fired'), dispatch(actions.login('asdfasdf','asdfasdf'))}}
+                    containerStyle= {{ width: '96%', marginTop:30 }}
+                    onPress={()=>loginVerify()}
+                    disabled= {username === '' || password === ''}
                 />   
 
                 {/* <Icon.Button
@@ -72,7 +88,6 @@ const IMAGE_HEIGHT = window.width / 2
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        //paddingHorizontal: 10,
         alignItems: 'center',
         justifyContent: 'center',
     },
