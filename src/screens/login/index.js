@@ -3,8 +3,7 @@ import {
     View,
     StyleSheet,
     Dimensions, 
-    Image,
-    
+    Image,    
 } from 'react-native'
 import * as actions from '../../actions/loginActions'
 
@@ -18,10 +17,16 @@ import colors from '../../constants/colors'
 
 const window = Dimensions.get('window')
 
-const LoginScreen = () => {
+const LoginScreen = ({ navigation: { navigate } }) => {
+    const isLoggedIn = useSelector(state => state.login.isloggedIn)
     useEffect(() => {
-        SplashScreen.hide()
+        SplashScreen.hide()  
     }, [])
+    useEffect(()=>{
+        if (isLoggedIn) {
+            navigate('Setting')
+        }
+    })
     const dispatch = useDispatch()
     const [ username, setUsername ] = useState('')
     const [ password, setPassword ] = useState('')
@@ -70,6 +75,8 @@ const LoginScreen = () => {
                     onPress={()=>loginVerify()}
                     disabled= {username === '' || password === ''}
                 />   
+
+                {/* <Button onPress={() => navigate('Home')} title="home" /> */}
 
                 {/* <Icon.Button
                     name="facebook"

@@ -1,10 +1,11 @@
 import React from 'react'
-import { View, Text } from 'react-native-elements'
+import { View } from 'react-native'
+import { Text } from 'react-native-elements'
 
 const SettingScreen = () => {
     return (
         <View>
-            <Text>This is home Screen</Text>
+            <Text>This is setting Screen</Text>
         </View>
     )
 }
