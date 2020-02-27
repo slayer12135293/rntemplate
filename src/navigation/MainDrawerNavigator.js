@@ -23,7 +23,7 @@ const DrawerNavigator = () => {
                 }}
                 drawerContent={DrawerContent}
             >
-                {!isLoggedIn ? 
+                {isLoggedIn ? 
                     <> 
                         <Drawer.Screen name="Home" component={HomeScreen} />
                         <Drawer.Screen name="Setting" component={SettingScreen} />

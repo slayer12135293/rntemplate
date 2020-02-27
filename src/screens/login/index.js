@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react'
 import {
     View,
     StyleSheet,
-    Dimensions, 
-    Image,    
+    Dimensions,    
+    ActivityIndicator,
+    Image as RNImage,
 } from 'react-native'
 import * as actions from '../../actions/loginActions'
 
@@ -18,28 +19,30 @@ import colors from '../../constants/colors'
 const window = Dimensions.get('window')
 
 const LoginScreen = ({ navigation: { navigate } }) => {
+    const dispatch = useDispatch()
     const isLoggedIn = useSelector(state => state.login.isloggedIn)
+    const errorMsg = useSelector(state => state.login.error)
+    const isLoading = useSelector(state => state.login.isLoading)
     useEffect(() => {
         SplashScreen.hide()  
+        dispatch(actions.loginFromStorage())
     }, [])
-    useEffect(()=>{
-        if (isLoggedIn) {
-            navigate('Setting')
-        }
-    })
-    const dispatch = useDispatch()
+    // useEffect(()=>{
+    //     if (isLoggedIn) {
+    //         navigate('Setting')
+    //     }
+    // })
+    
     const [ username, setUsername ] = useState('')
     const [ password, setPassword ] = useState('')
-    const [ errorMsg, setErrorMsg ] = useState(null)
 
-    const loginVerify = () => {
-        var response = dispatch(actions.login(username, password))
-        setErrorMsg(response)        
+    const loginVerify = () => {  
+        dispatch(actions.login(username, password))
     }
     return(
         <KeyboardAwareScrollView contentContainerStyle={{ flexGrow: 1 }}>            
             <View style={styles.container}>
-                <Image source={whiteChoco} style={styles.logo} />
+                <RNImage source={whiteChoco} style={styles.logo} />               
                 <Input
                     placeholder='Username'
                     leftIcon={
@@ -68,6 +71,9 @@ const LoginScreen = ({ navigation: { navigate } }) => {
                     onChangeText={psw => setPassword(psw)}
                 />
                 <Text style={{ color:colors.RED, marginTop:10 }}>{errorMsg}</Text>
+
+                {isLoading ? <ActivityIndicator/> : <></>}
+
                 <Button                    
                     title="login"
                     type="solid"
@@ -101,7 +107,7 @@ const styles = StyleSheet.create({
 
     logo: {
         height: IMAGE_HEIGHT,
-        resizeMode: 'contain',
+        resizeMode:'contain',
         marginBottom: 20,
     },
 })

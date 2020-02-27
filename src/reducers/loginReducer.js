@@ -1,14 +1,27 @@
 import * as actionTypes from '../actionTypes/loginTypes'
 const initState = {
     userName: 'HomerJ',
-    password: 'qwertyui',
+    password: 'Qwertyui',
     token:null,
+    isLoading:false,
     isloggedIn: false,
+    error:null,
+    loading:false,
     user: null,
 }
 
 const loginReducer = (state = initState, { type, payload } ) =>{
     switch(type) {
+        case actionTypes.LOADING:
+            return{
+                ...state,
+                isLoading: payload.loading,
+            }
+        case actionTypes.ERROR:
+            return{
+                ...state,
+                error: payload.error,
+            }    
         case actionTypes.LOGIN: 
             return{
                 ...state,
@@ -19,7 +32,7 @@ const loginReducer = (state = initState, { type, payload } ) =>{
             }
         case actionTypes.LOGOUT: 
             return{
-                state,
+                ...state,
                 isloggedIn:false,
                 userName: '',
                 token:'',

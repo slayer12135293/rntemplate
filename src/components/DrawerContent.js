@@ -44,9 +44,16 @@ const iconMapper = (routeName) => {
                 size={24}
                 color={colors.YELLOW}
             />)
+        case 'Logout':
+            return (<Icon
+                name='logout'
+                type='material-community'
+                size={24}
+                color={colors.YELLOW}
+            />)
         default:
             return(<Icon
-                name='account'
+                name='cloud'
                 type='material'
                 size={24}
                 color={colors.YELLOW}
