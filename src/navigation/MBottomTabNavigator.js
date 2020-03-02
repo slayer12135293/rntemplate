@@ -5,6 +5,7 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 import HomeScreen  from '../screens/home'
 import SettingScreen  from '../screens/setting'
 import LoginScreen from '../screens/login'
+import LottieScreen from '../screens/lottie'
 import  Icon  from 'react-native-vector-icons/FontAwesome'
 import colors  from '../constants/colors'
 
@@ -45,12 +46,12 @@ const MBottomTabNavigator = () =>{
                                 }}
                             /> 
                             <Tab.Screen 
-                                name="Login" 
-                                component={HomeScreen}  
+                                name="Lottie" 
+                                component={LottieScreen}  
                                 options={{
-                                    tabBarLabel: 'Home',
+                                    tabBarLabel: 'Lottie',
                                     tabBarIcon: () => (
-                                        <Icon name="gear" color={colors.YELLOW} size={24} />
+                                        <Icon name="birthday-cake" color={colors.YELLOW} size={24} />
                                     ),
                                 }}
                             /> 
