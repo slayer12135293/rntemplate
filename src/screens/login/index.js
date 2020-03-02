@@ -5,6 +5,7 @@ import {
     Dimensions,    
     ActivityIndicator,
     Image as RNImage,
+    KeyboardAvoidingView,
 } from 'react-native'
 import * as actions from '../../actions/loginActions'
 
@@ -40,60 +41,60 @@ const LoginScreen = ({ navigation: { navigate } }) => {
         dispatch(actions.login(username, password))
     }
     return(
-        <KeyboardAwareScrollView contentContainerStyle={{ flexGrow: 1 }}>            
-            <View style={styles.container}>
-                <RNImage source={whiteChoco} style={styles.logo} />               
-                <Input
-                    placeholder='Username'
-                    leftIcon={
-                        <Icon
-                            name='account'
-                            type='material-community'
-                            size={24}
-                            color='#00aced'
-                        />
-                    }
-                    onChangeText={username=> setUsername(username)}
+        // <KeyboardAwareScrollView contentContainerStyle={{ flexGrow: 1 }}>   
+        <KeyboardAvoidingView style={styles.container}>         
+          
+            <RNImage source={whiteChoco} style={styles.logo} />               
+            <Input
+                placeholder='Username'
+                leftIcon={
+                    <Icon
+                        name='account'
+                        type='material-community'
+                        size={24}
+                        color='#00aced'
+                    />
+                }
+                onChangeText={username=> setUsername(username)}
                     
-                />
-                <Input
-                    placeholder='Password'
-                    leftIcon={
-                        <Icon
-                            name='key'
-                            type='material-community'
-                            size={24}
-                            color='#00aced'
-                        />
-                    }
-                    secureTextEntry
-                    containerStyle={{ marginTop:10 }}
-                    onChangeText={psw => setPassword(psw)}
-                />
-                <Text style={{ color:colors.RED, marginTop:10 }}>{errorMsg}</Text>
+            />
+            <Input
+                placeholder='Password'
+                leftIcon={
+                    <Icon
+                        name='key'
+                        type='material-community'
+                        size={24}
+                        color='#00aced'
+                    />
+                }
+                secureTextEntry
+                containerStyle={{ marginTop:10 }}
+                onChangeText={psw => setPassword(psw)}
+            />
+            <Text style={{ color:colors.RED, marginTop:10 }}>{errorMsg}</Text>
 
-                {isLoading ? <ActivityIndicator/> : <></>}
+            {isLoading ? <ActivityIndicator/> : <></>}
 
-                <Button                    
-                    title="login"
-                    type="solid"
-                    containerStyle= {{ width: '96%', marginTop:30 }}
-                    onPress={()=>loginVerify()}
-                    disabled= {username === '' || password === ''}
-                />   
+            <Button                    
+                title="login"
+                type="solid"
+                containerStyle= {{ width: '96%', marginTop:30 }}
+                onPress={()=>loginVerify()}
+                disabled= {username === '' || password === ''}
+            />   
 
-                {/* <Button onPress={() => navigate('Home')} title="home" /> */}
+            {/* <Button onPress={() => navigate('Home')} title="home" /> */}
 
-                {/* <Icon.Button
+            {/* <Icon.Button
                     name="facebook"
                     backgroundColor="#3b5998"
                 >
                     Login with Facebook
                 </Icon.Button>   */}
-
-            </View>
-            
-        </KeyboardAwareScrollView>
+           
+        </KeyboardAvoidingView>
+        // </KeyboardAwareScrollView>
         
     )
 }
@@ -103,6 +104,7 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
+        flexGrow: 1,
     },
 
     logo: {

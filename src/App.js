@@ -11,7 +11,7 @@ import { Provider } from 'react-redux'
 import store from './store'
 import { ThemeProvider, colors } from 'react-native-elements'
 import DrawerNavigator from './navigation/MainDrawerNavigator'
-import AppNavigator from './navigation/AppNavigator'
+import MBottomTabNavigator from './navigation/MBottomTabNavigator'
 
 const theme = {
     colors: {
@@ -27,7 +27,8 @@ const App = () => {
             <ThemeProvider theme={theme}>
                 <View style={styles.container}>
                     {Platform.OS === 'ios' && <StatusBar barStyle="default" />}                   
-                    <DrawerNavigator/>
+                    {/* <DrawerNavigator/> */}
+                    <MBottomTabNavigator/>
                 </View>
             </ThemeProvider>
         </Provider>     
