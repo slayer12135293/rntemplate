@@ -7,6 +7,7 @@ import HomeScreen  from '../screens/home'
 import SettingScreen  from '../screens/setting'
 import LoginScreen from '../screens/login'
 import DrawerContent from '../components/DrawerContent'
+import LottieScreen from '../screens/lottie'
 
 import colors from '../constants/colors'
 
@@ -15,18 +16,19 @@ const Drawer = createDrawerNavigator()
 const DrawerNavigator = () => {
     const isLoggedIn = useSelector(state => state.login.isloggedIn)
     return(
-        <NavigationContainer>
+        <NavigationContainer>            
             <Drawer.Navigator 
                 initialRouteName="Home"
                 drawerStyle={{
                     backgroundColor:colors.WHITE,
                 }}
-                drawerContent={DrawerContent}
+                drawerContent={props => <DrawerContent {...props} />}
             >
                 {isLoggedIn ? 
                     <> 
                         <Drawer.Screen name="Home" component={HomeScreen} />
                         <Drawer.Screen name="Setting" component={SettingScreen} />
+                        <Drawer.Screen name="Lottie" component={LottieScreen} />
                     </> : 
                     <Drawer.Screen name="Login" component={LoginScreen} /> }                
                 

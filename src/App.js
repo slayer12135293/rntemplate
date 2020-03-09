@@ -27,8 +27,8 @@ const App = () => {
             <ThemeProvider theme={theme}>
                 <View style={styles.container}>
                     {Platform.OS === 'ios' && <StatusBar barStyle="default" />}                   
-                    {/* <DrawerNavigator/> */}
-                    <MBottomTabNavigator/>
+                    <DrawerNavigator/>
+                    {/* <MBottomTabNavigator/> */}
                 </View>
             </ThemeProvider>
         </Provider>     
