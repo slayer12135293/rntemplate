@@ -16,7 +16,11 @@ const HomeScreen = ({ navigation }) => {
             <Header
                 statusBarProps={{ barStyle: 'light-content', translucent: true }}
                 barStyle="light-content" 
-                leftComponent={{ icon: 'menu', color: '#fff' }}
+                leftComponent={{ 
+                    icon: 'menu', 
+                    color: '#fff',
+                    onPress: ()=> navigation.openDrawer(),
+                }}
                 centerComponent={{ text: 'Home', style: { color: '#fff' } }}
                 containerStyle={{
                     backgroundColor: '#3D6DCC',
