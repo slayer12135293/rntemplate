@@ -6,6 +6,7 @@ import {
     ActivityIndicator,
     Image as RNImage,
     KeyboardAvoidingView,
+    Alert,
 } from 'react-native'
 import * as actions from '../../actions/loginActions'
 
@@ -16,6 +17,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import whiteChoco from '../../assets/images/choco-wm.png'
 import SplashScreen from 'react-native-splash-screen'
 import colors from '../../constants/colors'
+import { LoginButton, AccessToken, LoginManager } from 'react-native-fbsdk'
 
 const window = Dimensions.get('window')
 
@@ -40,6 +42,50 @@ const LoginScreen = ({ navigation: { navigate } }) => {
     const loginVerify = () => {  
         dispatch(actions.login(username, password))
     }
+
+    // const fbLoginFinished = (error, data) => {
+    //     const a = 343
+
+    //     const b = 34
+    //     console.log(a + b)
+    //     console.log(JSON.stringify(error || data, null, 2))
+    // }
+
+    const fbAuth = () => {
+        LoginManager.logInWithPermissions([ 'public_profile' ]).then(
+            function(result) {
+                if (result.isCancelled) {
+                    console.log('Login cancelled')
+                } else {
+                    console.log(
+                        'Login success with permissions: ' +
+                    result.grantedPermissions.toString()
+                    )
+
+                    AccessToken.getCurrentAccessToken().then((data) => {
+                        const { accessToken } = data
+                        fetch('https://graph.facebook.com/v2.5/me?fields=email,name,friends&access_token=' + accessToken)
+                            .then((response) => response.json())
+                            .then((json) => {
+                                // Some user object has been set up somewhere, build that user here
+                                console.log(json) 
+                            })
+                            .catch(() => {
+                                console.log('ERROR GETTING DATA FROM FACEBOOK')
+                            })
+                    })
+                }
+            },
+            function(error) {
+                console.log('Login fail with error: ' + error)
+            })
+    }
+
+    const fbLogout = () => {
+        LoginManager.logOut()
+        console.log('logged out now')
+    }
+
     return(
         // <KeyboardAwareScrollView contentContainerStyle={{ flexGrow: 1 }}>   
         <KeyboardAvoidingView style={styles.container}>         
@@ -75,6 +121,24 @@ const LoginScreen = ({ navigation: { navigate } }) => {
             <Text style={{ color:colors.RED, marginTop:10 }}>{errorMsg}</Text>
 
             {isLoading ? <ActivityIndicator/> : <></>}
+
+            <LoginButton
+                //onLoginFinished={ (error, data) => fbLoginFinished(error, data)}
+               
+                onLogoutFinished={() => console.log('logout.')}/>
+
+            <Button                    
+                title="login with facebook"
+                type="solid"
+                containerStyle= {{ width: '96%', marginTop:30 }}
+                onPress={()=>fbAuth()}
+            />  
+            <Button
+                title="logout"
+                type="solid"
+                containerStyle= {{ width: '96%', marginTop:30 }}
+                onPress={()=>fbLogout()}
+            />
 
             <Button                    
                 title="login"
