@@ -8,9 +8,11 @@ import * as actions from '../../actions/loginActions'
 
 const HomeScreen = ({ navigation }) => {
     const dispatch = useDispatch()
-    useEffect(() => {
-        SplashScreen.hide()
+   
+    useEffect(() => {        
+        SplashScreen.hide()        
     }, [])
+
     return (
         <View style={{ flex:1 }}>
             <Header
