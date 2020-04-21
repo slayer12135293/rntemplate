@@ -32,7 +32,7 @@ const HomeScreen = ({ navigation }) => {
                 <Text>This is home Screen</Text>
                 <Button
                     onPress={() => navigation.navigate('Setting')}
-                    title="Go to setting"                
+                    title="Go to settings"                
                 />
                 <Button title="Log out" 
                     containerStyle={{  marginTop:100, width:'98%' }}

@@ -17,7 +17,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import whiteChoco from '../../assets/images/choco-wm.png'
 import SplashScreen from 'react-native-splash-screen'
 import colors from '../../constants/colors'
-import { LoginButton, AccessToken, LoginManager } from 'react-native-fbsdk'
+import { LoginButton, AccessToken, LoginManager, GraphRequestManager, GraphRequest } from 'react-native-fbsdk'
 
 const window = Dimensions.get('window')
 
@@ -43,42 +43,48 @@ const LoginScreen = ({ navigation: { navigate } }) => {
         dispatch(actions.login(username, password))
     }
 
-    // const fbLoginFinished = (error, data) => {
-    //     const a = 343
-
-    //     const b = 34
-    //     console.log(a + b)
-    //     console.log(JSON.stringify(error || data, null, 2))
-    // }
-
-    const fbAuth = () => {
-        LoginManager.logInWithPermissions([ 'public_profile' ]).then(
-            function(result) {
-                if (result.isCancelled) {
-                    console.log('Login cancelled')
-                } else {
-                    console.log(
-                        'Login success with permissions: ' +
-                    result.grantedPermissions.toString()
-                    )
-
-                    AccessToken.getCurrentAccessToken().then((data) => {
-                        const { accessToken } = data
-                        fetch('https://graph.facebook.com/v2.5/me?fields=email,name,friends&access_token=' + accessToken)
-                            .then((response) => response.json())
-                            .then((json) => {
-                                // Some user object has been set up somewhere, build that user here
-                                console.log(json) 
-                            })
-                            .catch(() => {
-                                console.log('ERROR GETTING DATA FROM FACEBOOK')
-                            })
-                    })
+    const fbAuth = async () => {     
+        try {
+            const response = await LoginManager.logInWithPermissions([ 'public_profile', 'email', 'user_location' ])
+            if (response.isCancelled) {
+                console.log('Login cancelled')
+            } else {
+                console.log(
+                    'Login success with permissions: ' +
+                    response.grantedPermissions.toString()
+                )
+                    
+                const tokenResponse = await AccessToken.getCurrentAccessToken()
+                 
+                const responseInfoCallback = (error, result) => {
+                    if (error) {
+                        console.log(error)
+                    } else {
+                        console.log(result)
+                    }
                 }
-            },
-            function(error) {
-                console.log('Login fail with error: ' + error)
-            })
+                
+                const infoRequest = new GraphRequest(
+                    '/me',
+                    {
+                        accessToken: tokenResponse.accessToken,
+                        parameters: {
+                            fields: {
+                                string: 'email,name,first_name,middle_name,last_name, birthday, link, location',
+                            },
+                        },
+                    },
+                    responseInfoCallback
+                )
+      
+                // Start the graph request.
+                new GraphRequestManager().addRequest(infoRequest).start()
+
+            }
+        } catch (error) {
+            console.log('Login fail with error: ' + error)
+        }
+        
     }
 
     const fbLogout = () => {
