@@ -1,0 +1,13 @@
+{
+    "common": {
+        "save": "spara",
+        "send": "skicka",
+        "home": "hem"
+    },
+    "screens": {
+      "home": {
+          "text1": "alksjdhf lasjkdh falksjdhf laksjdhfa sdjhfh",
+          "text2": "asdfasdfasdfasdf asdfasdf"
+      }
+    }
+}

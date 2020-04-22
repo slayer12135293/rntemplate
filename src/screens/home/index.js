@@ -5,9 +5,11 @@ import SplashScreen from 'react-native-splash-screen'
 import globalStyle from '../../assets/globalStyles'
 import { useDispatch } from 'react-redux'
 import * as actions from '../../actions/loginActions'
+import { useTranslation } from 'react-i18next'
 
 const HomeScreen = ({ navigation }) => {
     const dispatch = useDispatch()
+    const { t } = useTranslation()
    
     useEffect(() => {        
         SplashScreen.hide()        
@@ -31,7 +33,7 @@ const HomeScreen = ({ navigation }) => {
             />
             <View style={globalStyle.container}>
             
-                <Text>This is home Screen</Text>
+                <Text>{t('screens.home.text1')}</Text>
                 <Button
                     onPress={() => navigation.navigate('Setting')}
                     title="Go to settings"                

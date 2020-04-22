@@ -7,6 +7,7 @@ import {
     StatusBar,
 } from 'react-native'
 
+import './i18n'
 import { Provider } from 'react-redux'
 import store from './store'
 import { ThemeProvider, colors } from 'react-native-elements'
