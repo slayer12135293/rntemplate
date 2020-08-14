@@ -1,8 +1,8 @@
 platform :ios, '9.0'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
 
-target 'LeiRnTemplate' do
-  # Pods for LeiRnTemplate
+target 'StockholmStaden' do
+  # Pods for StockholmStaden
   pod 'FBLazyVector', :path => "../node_modules/react-native/Libraries/FBLazyVector"
   pod 'FBReactNativeSpec', :path => "../node_modules/react-native/Libraries/FBReactNativeSpec"
   pod 'RCTRequired', :path => "../node_modules/react-native/Libraries/RCTRequired"
@@ -36,7 +36,7 @@ target 'LeiRnTemplate' do
 
 
 
-  target 'LeiRnTemplateTests' do
+  target 'StockholmStadenTests' do
     inherit! :search_paths
     # Pods for testing
   end
@@ -44,10 +44,10 @@ target 'LeiRnTemplate' do
   use_native_modules!
 end
 
-target 'LeiRnTemplate-tvOS' do
-  # Pods for LeiRnTemplate-tvOS
+target 'StockholmStaden-tvOS' do
+  # Pods for StockholmStaden-tvOS
 
-  target 'LeiRnTemplate-tvOSTests' do
+  target 'StockholmStaden-tvOSTests' do
     inherit! :search_paths
     # Pods for testing
   end

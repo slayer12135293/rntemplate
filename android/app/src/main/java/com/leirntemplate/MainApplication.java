@@ -1,4 +1,4 @@
-package com.leirntemplate;
+package com.StockholmStaden;
 
 import android.app.Application;
 import android.content.Context;

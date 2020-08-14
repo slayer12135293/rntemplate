@@ -33,10 +33,10 @@ const SettingScreen = ({ navigation }) => {
             <MapView
                 style={styles.map}
                 initialRegion={{
-                    latitude: 37.78825,
-                    longitude: -122.4324,
-                    latitudeDelta: 0.0922,
-                    longitudeDelta: 0.0421,
+                    longitudeDelta: 0.5,
+                    latitudeDelta: 0.5,
+                    latitude: 59.3210473,
+                    longitude: 18.0717866,
                 }}
             />
         </View>

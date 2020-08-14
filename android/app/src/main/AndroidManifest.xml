@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-  package="com.leirntemplate">
+  package="com.StockholmStaden">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -26,7 +26,7 @@
       <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
       <meta-data
         android:name="com.google.android.geo.API_KEY"
-        android:value="AIzaSyDto2fXjrXXPcf_Zuz7KmAKJBelHW_Axao"/>
+        android:value="AIzaSyC2xoAzOwaQcMXiNNkMF44PcczcQo7YDtA"/>
       <uses-library android:name="org.apache.http.legacy" android:required="false"/>
     </application>
 
